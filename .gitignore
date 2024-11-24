@@ -26,6 +26,9 @@ build/
 .env.local
 .env.*.local
 
+# Data
+data/
+
 # Databases
 *.sqlite
 
