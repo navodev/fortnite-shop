@@ -2,7 +2,7 @@ import express from "express";
 import schedule from "node-schedule";
 import fs from "fs";
 import path from "path";
-import fetchShopData from "./fetchShopData";
+import { fetchShopData, fetchItem } from "./fetchShopData";
 
 const app = express();
 const PORT = 5500;
@@ -14,6 +14,17 @@ app.get("/shop", (req, res) => {
     res.json(shopData);
   } else {
     res.status(404).json({ message: "Shop data not available" });
+  }
+});
+
+app.get("/shop/:itemId", (req, res) => {
+  const itemId = req.params.itemId;
+
+  const item = fetchItem(itemId);
+  if (item) {
+    res.json(item);
+  } else {
+    res.status(404).json({ message: "Item not found." });
   }
 });
 

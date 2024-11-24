@@ -1,17 +1,7 @@
 import axios from "axios";
 import ShopItem from "./ShopItem";
 import { useState, useEffect } from "react";
-
-interface ShopItemType {
-  name: string;
-  price: number;
-  img: string;
-  type: string;
-}
-
-interface SectionType {
-  [section: string]: ShopItemType[];
-}
+import { SectionType, ShopItemType } from "../types";
 
 function Shop() {
   const [sections, setSections] = useState<SectionType>({});
