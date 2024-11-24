@@ -5,7 +5,7 @@ import path from "path";
 import fetchShopData from "./fetchShopData";
 
 const app = express();
-const PORT = 5000;
+const PORT = 5500;
 const SHOP_JSON_PATH = path.join(__dirname, "data", "shop.json");
 
 app.get("/shop", (req, res) => {
@@ -18,7 +18,6 @@ app.get("/shop", (req, res) => {
 });
 
 schedule.scheduleJob("*/5 * * * *", () => {
-  console.log("Fetching new shop data...");
   fetchShopData();
 });
 

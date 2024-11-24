@@ -1,23 +1,59 @@
 import axios from "axios";
 import ShopItem from "./ShopItem";
+import { useState, useEffect } from "react";
+
+interface ShopItemType {
+  name: string;
+  price: number;
+  img: string;
+  type: string;
+}
+
+interface SectionType {
+  [section: string]: ShopItemType[];
+}
 
 function Shop() {
+  const [sections, setSections] = useState<SectionType>({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchShop = async () => {
+      try {
+        const response = await axios.get("/api/shop");
+        setSections(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch shop:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchShop();
+  }, []);
+
   return (
-    <div className="w-screen h-screen bg-gradient-to-bl from-[#053373] to-[#0774bb] text-white">
+    <div className="w-screen h-fit bg-gradient-to-bl from-[#053373] to-[#0774bb] text-white">
       <div className="p-10">
         <div className="mb-[100px]">
           <h1 className="text-3xl italic font-bold">ITEM SHOP</h1>
           <p className="text-lg font-semibold">Powered by Navo</p>
           <p className="text-lg font-semibold">Welcome to the Item Shop where you view and purchase current items.</p>
         </div>
-        <div>
-          <ShopItem
-            name="Werewolf Bundle"
-            price={500}
-            img="https://media.fortniteapi.io/images/shop/e8340fb46e7fbe841d71d49daa26faaa5e4e489fdb4d45093e712dc257d209ed/v2/MI_Bundle_Featured_Levain/background.png"
-            type="Item Bundle"
-          />
-        </div>
+        {isLoading ? (
+          <p>Loading latest items...</p>
+        ) : (
+          Object.keys(sections).map((section) => (
+            <div key={section} className="mb-8 w-5/6">
+              <h2 className="text-[30px] uppercase italic font-extrabold mb-4">{section}</h2>
+              <div className="flex items-center max-xs:justify-center flex-wrap gap-2 mt-4">
+                {sections[section].map((item: ShopItemType) => (
+                  <ShopItem name={item.name} price={item.price} img={item.img} type={item.type} />
+                ))}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

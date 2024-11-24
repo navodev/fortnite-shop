@@ -9,12 +9,13 @@ interface CardProps {
 
 const ShopItem: React.FC<CardProps> = ({ name, price, img, type }) => {
   return (
-    <div className="relative w-[300px] hover:ring-2 ring-indigo-300 hover:cursor-pointer rounded-xl h-[400px] group overflow-hidden">
+    <div className="relative w-[250px] hover:ring-2 ring-indigo-300 hover:cursor-pointer rounded-xl h-[400px] group overflow-hidden">
       <img
         src={img}
         alt={name}
         className="absolute top-0 left-0 object-cover w-full h-full object-center brightness-90 group-hover:scale-110 group-hover:brightness-100 transition-all"
       />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
       <div className="absolute bottom-5 left-5">
         <p className="font-semibold opacity-0 group-hover:opacity-100 transition-all">{type}</p>
         <h3 title={name} className="text-left font-bold text-xl ">

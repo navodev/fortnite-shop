@@ -21,8 +21,6 @@ const fetchShopData = async () => {
     const sections = processShopData(shopData);
 
     fs.writeFileSync(SHOP_JSON_PATH, JSON.stringify(sections, null, 2), "utf-8");
-
-    console.log("Shop data updated successfully!");
   } catch (error) {
     console.error("Error fetching shop data:", error);
   }
@@ -43,7 +41,7 @@ const processShopData = (shopData: any) => {
     sections[sectionName].push({
       name: item.displayName,
       price: item.price.finalPrice,
-      type: item.mainType,
+      type: item.displayType,
       img: img,
     });
   });
