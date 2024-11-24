@@ -21,7 +21,7 @@ function Shop() {
     const fetchShop = async () => {
       try {
         const response = await axios.get("/api/shop");
-        setSections(response.data);
+        setSections(response.data as SectionType);
         setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch shop:", error);

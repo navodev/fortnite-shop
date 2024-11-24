@@ -17,8 +17,12 @@ const fetchShopData = async () => {
       },
     });
 
-    const shopData = response.data.shop;
+    const shopData = (response.data as any).shop;
     const sections = processShopData(shopData);
+
+    if (!fs.existsSync(SHOP_JSON_PATH)) {
+      fs.mkdirSync(SHOP_JSON_PATH);
+    }
 
     fs.writeFileSync(SHOP_JSON_PATH, JSON.stringify(sections, null, 2), "utf-8");
   } catch (error) {
