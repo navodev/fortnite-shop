@@ -46,13 +46,21 @@ const processShopData = (shopData: any) => {
       id: item.mainId,
       name: item.displayName,
       price: item.price.finalPrice,
+      discount: item.price.regularPrice - item.price.finalPrice,
       type: item.displayType,
       img: img,
       offerId: item.offerId,
-      lastSeen: item.previusReleaseDate,
+      lastSeen: item.previousReleaseDate,
       description: item.displayDescription,
+      includes: item.granted.map((item: any) => item.images.icon),
     });
   });
+
+  if (sections["Jam Tracks"]) {
+    const jamTracks = sections["Jam Tracks"];
+    delete sections["Jam Tracks"];
+    sections["Jam Tracks"] = jamTracks;
+  }
 
   return sections;
 };

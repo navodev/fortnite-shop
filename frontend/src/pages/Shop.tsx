@@ -23,7 +23,7 @@ function Shop() {
   }, []);
 
   return (
-    <div className="w-screen h-fit bg-gradient-to-bl from-[#053373] to-[#0774bb] text-white">
+    <div className="w-screen h-fit min-h-screen bg-gradient-to-bl from-[#053373] to-[#0774bb] text-white">
       <div className="p-10">
         <div className="mb-[100px]">
           <h1 className="text-3xl italic font-bold">ITEM SHOP</h1>
@@ -38,7 +38,7 @@ function Shop() {
               <h2 className="text-[30px] uppercase italic font-extrabold mb-4">{section}</h2>
               <div className="flex items-center max-xs:justify-center flex-wrap gap-2 mt-4">
                 {sections[section].map((item: ShopItemType) => (
-                  <ShopItem name={item.name} price={item.price} img={item.img} type={item.type} />
+                  <ShopItem item={item} />
                 ))}
               </div>
             </div>
